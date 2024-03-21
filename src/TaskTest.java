@@ -1,12 +1,13 @@
-package Tests;
+package tests;
 
-import Managers.Managers;
-import Tasks.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
-import Managers.*;
+import tasks.*;
+import managers.*;
+
 class TaskTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
     @Test
@@ -50,12 +51,12 @@ class TaskTest {
 
     @Test
     public void managersEquals() {
-        Managers managers = new Managers();
+
         Task task = taskManager.createTask(new Task("Новая задача", Status.NEW, "Описание задачи"));
         HistoryManager manager1 = new InMemoryHistoryManager();
         manager1.add(task);
         List<Task> list1 = manager1.getHistory();
-        HistoryManager manager2 = managers.getDefaultHistory();
+        HistoryManager manager2 = Managers.getDefaultHistory();
         manager2.add(task);
         List<Task> list2 = manager2.getHistory();
         Assertions.assertNotNull(list1, "Cписок пустой");
@@ -65,8 +66,7 @@ class TaskTest {
 
     @Test
     public void giveTask() {
-        Managers managers = new Managers();
-        TaskManager manager = managers.getDefault();
+        TaskManager manager = Managers.getDefault();
         Task task = manager.createTask(new Task("Новая задача", Status.NEW, "Описание задачи"));
         Epic epic = manager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
         Task task1 = manager.getTask(task.getId());
@@ -86,5 +86,39 @@ class TaskTest {
         List<Task> list = historyManager.getHistory();
         task = list.get(0);
         Assertions.assertEquals(task, task1);
+    }
+    // 6-ой спринт
+
+    @Test
+    public void addTest() {
+        HistoryManager manager = Managers.getDefaultHistory();
+        Task task = new Task("Новая задача", Status.NEW, "Описание задачи");
+        manager.add(task);
+        for (Task print : manager.getHistory()) {
+            Assertions.assertNotNull(print);
+        }
+    }
+
+    @Test
+    public void removeTest() {
+        HistoryManager manager = Managers.getDefaultHistory();
+        Task task = new Task("Новая задача", Status.NEW, "Описание задачи");
+        manager.add(task);
+        manager.remove(task.getId());
+        for (Task print : manager.getHistory()) {
+            Assertions.assertNull(print);
+        }
+    }
+
+    @Test
+    public void checkIsEmpty() {
+        HistoryManager manager = Managers.getDefaultHistory();
+        TaskManager taskManager = Managers.getDefault();
+        Task task = new Task("Новая задача", Status.NEW, "Описание задачи");
+        taskManager.createTask(task);
+        taskManager.getTask(task.getId());
+        taskManager.deleteAllTasks();
+        List<Task> list = manager.getHistory();
+        Assertions.assertTrue(list.isEmpty());
     }
 }

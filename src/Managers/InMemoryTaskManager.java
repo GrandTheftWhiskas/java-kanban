@@ -1,11 +1,11 @@
-package Managers;
+package managers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.List;
 import java.util.Map;
-import Tasks.*;
+import tasks.*;
 
 
 public class InMemoryTaskManager implements TaskManager {
@@ -142,11 +142,15 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllTasks() {
+        List<Integer> list = new ArrayList<>(tasks.keySet());
+        history.clearHistory(list);
         tasks.clear();
     }
 
     @Override
     public void deleteAllSubTasks() {
+        List<Integer> list = new ArrayList<>(subTasks.keySet());
+        history.clearHistory(list);
         subTasks.clear();
         for (Epic epic : epics.values()) {
             epic.deleteAllSubTasks();
@@ -156,6 +160,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllEpics() {
+        List<Integer> list1 = new ArrayList<>(subTasks.keySet());
+        List<Integer> list2 = new ArrayList<>(epics.keySet());
+        history.clearHistory(list1);
+        history.clearHistory(list2);
         epics.clear();
         subTasks.clear();
     }

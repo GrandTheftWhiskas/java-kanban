@@ -1,5 +1,5 @@
-package Managers;
-import Tasks.*;
+package managers;
+import tasks.*;
 import java.util.List;
 
 public interface HistoryManager {
@@ -8,4 +8,6 @@ public interface HistoryManager {
      List<Task> getHistory();
 
      void remove(int id);
+
+     void clearHistory(List<Integer> list);
 }
