@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b9b5135-092d-48fd-b1f1-5084773dad6b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Tasks/Type.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/managers/FileBackedTaskManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/managers/ManagerSaveException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasks/Managers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Managers/InMemoryTaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Managers/InMemoryTaskManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Task.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Tests/TaskTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/InMemoryTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TaskTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +26,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -39,10 +50,17 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;sprint__6-solution&quot;
+    &quot;git-widget-placeholder&quot;: &quot;sprint__7-solution-in-file-manager&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.TaskTest">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="java-kanban" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TaskTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <extension name="coverage">
@@ -54,38 +72,6 @@
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.TaskTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TaskTest.AddAndRemoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.TaskTest" />
-      <option name="METHOD_NAME" value="AddAndRemoveTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TaskTest.addAndRemoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.TaskTest" />
-      <option name="METHOD_NAME" value="addAndRemoveTest" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -122,13 +108,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TaskTest.removeTest1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TaskTest" />
+      <option name="METHOD_NAME" value="removeTest1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.TaskTest.removeTest1" />
         <item itemvalue="JUnit.TaskTest" />
         <item itemvalue="JUnit.TaskTest.addTest" />
         <item itemvalue="JUnit.TaskTest.checkIsEmpty" />
-        <item itemvalue="JUnit.TaskTest.addAndRemoveTest" />
-        <item itemvalue="JUnit.TaskTest.AddAndRemoveTest" />
       </list>
     </recent_temporary>
   </component>
