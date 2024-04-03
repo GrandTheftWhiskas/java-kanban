@@ -3,38 +3,42 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import tasks.*;
 import managers.*;
+import exceptions.*;
 
 class TaskTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
     @Test
-    public void taskEqualsTask() {
-        Task task = taskManager.createTask(new Task("Вторая задача", Status.NEW, "Подробное описание"));
+    public void taskEqualsTask() throws ManagerSaveException {
+        Task task = taskManager.createTask(new Task("Вторая задача", Status.NEW, Type.TASK, "Подробное описание"));
         Task secondTask = taskManager.getTask(task.getId());
         Assertions.assertEquals(task, secondTask, "Объекты не равны");
     }
 
     @Test
-    public void epicEqualsEpic() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+    public void epicEqualsEpic() throws ManagerSaveException {
+        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, Type.TASK, "Описание эпика"));
         Epic secondEpic = taskManager.getEpic(epic.getId());
         Assertions.assertEquals(epic, secondEpic, "Эпики не равны");
     }
 
     @Test
-    public void subtaskEqualsSubtask() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW, "Описание подзадачи", epic.getId()));
+    public void subtaskEqualsSubtask() throws ManagerSaveException {
+        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, Type.TASK, "Описание эпика"));
+        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW, Type.TASK, "Описание подзадачи", epic.getId()));
         SubTask secondSubTask = taskManager.getSubTask(subTask.getId());
         Assertions.assertEquals(subTask, secondSubTask, "Подзадачи не равны");
     }
 
     @Test
-    public void epicAddEpic() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+    public void epicAddEpic() throws ManagerSaveException {
+        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, Type.TASK, "Описание эпика"));
         epic.setSubTask(epic.getId());
         for (int id : epic.getAllSubTasks()) {
             Assertions.assertEquals(id, epic.getId(), "ID совпадают");
@@ -42,17 +46,17 @@ class TaskTest {
     }
 
     @Test
-    public void subtaskIsEpic() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW, "Описание подзадачи", epic.getId()));
+    public void subtaskIsEpic() throws ManagerSaveException {
+        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, Type.TASK, "Описание эпика"));
+        taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW, Type.TASK, "Описание подзадачи", epic.getId()));
         List<Integer> list = epic.getAllSubTasks();
         Assertions.assertNotEquals(list.get(0), epic.getId());
     }
 
     @Test
-    public void managersEquals() {
+    public void managersEquals() throws ManagerSaveException {
 
-        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW, "Описание задачи"));
+        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW, Type.TASK, "Описание задачи"));
         HistoryManager manager1 = new InMemoryHistoryManager();
         manager1.add(task);
         List<Task> list1 = manager1.getHistory();
@@ -65,10 +69,10 @@ class TaskTest {
     }
 
     @Test
-    public void giveTask() {
+    public void giveTask() throws ManagerSaveException {
         TaskManager manager = Managers.getDefault();
-        Task task = manager.createTask(new Task("Новая задача", Status.NEW, "Описание задачи"));
-        Epic epic = manager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        Task task = manager.createTask(new Task("Новая задача", Status.NEW, Type.TASK, "Описание задачи"));
+        Epic epic = manager.createEpic(new Epic("Новый эпик", Status.NEW, Type.TASK, "Описание эпика"));
         Task task1 = manager.getTask(task.getId());
         Epic epic1 = manager.getEpic(epic.getId());
         Assertions.assertNotNull(task1);
@@ -78,9 +82,9 @@ class TaskTest {
     }
 
     @Test
-    public void checkOldVersionTask() {
+    public void checkOldVersionTask() throws ManagerSaveException {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW, "Описание задачи"));
+        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW, Type.TASK, "Описание задачи"));
         Task task1 = taskManager.getTask(task.getId());
         historyManager.add(task);
         List<Task> list = historyManager.getHistory();
@@ -92,7 +96,7 @@ class TaskTest {
     @Test
     public void addTest() {
         HistoryManager manager = Managers.getDefaultHistory();
-        Task task = new Task("Новая задача", Status.NEW, "Описание задачи");
+        Task task = new Task("Новая задача", Status.NEW, Type.TASK, "Описание задачи");
         manager.add(task);
         for (Task print : manager.getHistory()) {
             Assertions.assertNotNull(print);
@@ -102,7 +106,7 @@ class TaskTest {
     @Test
     public void removeTest() {
         HistoryManager manager = Managers.getDefaultHistory();
-        Task task = new Task("Новая задача", Status.NEW, "Описание задачи");
+        Task task = new Task("Новая задача", Status.NEW, Type.TASK, "Описание задачи");
         manager.add(task);
         manager.remove(task.getId());
         for (Task print : manager.getHistory()) {
@@ -111,10 +115,10 @@ class TaskTest {
     }
 
     @Test
-    public void checkIsEmpty() {
+    public void checkIsEmpty() throws ManagerSaveException {
         HistoryManager manager = Managers.getDefaultHistory();
         TaskManager taskManager = Managers.getDefault();
-        Task task = new Task("Новая задача", Status.NEW, "Описание задачи");
+        Task task = new Task("Новая задача", Status.NEW, Type.TASK, "Описание задачи");
         taskManager.createTask(task);
         taskManager.getTask(task.getId());
         taskManager.deleteAllTasks();

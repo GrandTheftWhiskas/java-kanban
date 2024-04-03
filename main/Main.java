@@ -1,10 +1,11 @@
 import tasks.*;
 import managers.*;
+import exceptions.*;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws ManagerSaveException {
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
-        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW, "Описание"));
+        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW, Type.TASK, "Описание"));
         System.out.println("Создана задача: " + task);
 
         Task taskM = taskManager.getTask(task.getId());

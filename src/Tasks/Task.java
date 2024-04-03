@@ -3,12 +3,15 @@ package tasks;
 public class Task {
     private int id;
     private String name;
+
+    private Type type;
     private Status status;
     private String description;
 
-    public Task(String name, Status status, String description) {
+    public Task(String name, Status status, Type type, String description) {
         this.name = name;
         this.status = status;
+        this.type = type;
         this.description = description;
     }
 
@@ -18,6 +21,14 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public String getName() {

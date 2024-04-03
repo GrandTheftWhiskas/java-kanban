@@ -2,25 +2,26 @@ package managers;
 import tasks.*;
 
 import java.util.ArrayList;
+import exceptions.*;
 
 public interface TaskManager {
-    Task createTask(Task task);
+    Task createTask(Task task) throws ManagerSaveException;
 
-    SubTask createSubTask(SubTask subTask);
+    SubTask createSubTask(SubTask subTask) throws ManagerSaveException;
 
-    Epic createEpic(Epic epic);
+    Epic createEpic(Epic epic) throws ManagerSaveException;
 
-    Task getTask(int id);
+    Task getTask(int id) throws ManagerSaveException;
 
-    SubTask getSubTask(int id);
+    SubTask getSubTask(int id) throws ManagerSaveException;
 
-    Epic getEpic(int id);
+    Epic getEpic(int id) throws ManagerSaveException;
 
-    void updateTask(Task task);
+    void updateTask(Task task) throws ManagerSaveException;
 
-    void updateEpic(Epic epic);
+    void updateEpic(Epic epic) throws ManagerSaveException;
 
-    void updateSubTask(SubTask subTask);
+    void updateSubTask(SubTask subTask) throws ManagerSaveException;
 
     ArrayList<Task> getAllTasks();
 
@@ -28,15 +29,15 @@ public interface TaskManager {
 
     ArrayList<Epic> getAllEpics();
 
-    void deleteTask(int id);
+    void deleteTask(int id) throws ManagerSaveException;
 
-    void deleteSubTask(int id);
+    void deleteSubTask(int id) throws ManagerSaveException;
 
-    void deleteEpic(int id);
+    void deleteEpic(int id) throws ManagerSaveException;
 
-    void deleteAllTasks();
+    void deleteAllTasks() throws ManagerSaveException;
 
-    void deleteAllSubTasks();
+    void deleteAllSubTasks() throws ManagerSaveException;
 
-    void deleteAllEpics();
+    void deleteAllEpics() throws ManagerSaveException;
 }
