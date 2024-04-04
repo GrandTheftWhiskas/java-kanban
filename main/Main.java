@@ -15,6 +15,6 @@ public class Main {
         System.out.println("Получена задача: " + taskM);
 
         System.out.println("Cписок: ");
-        taskManager.getHistory();
+        System.out.println(taskManager.getHistory());
     }
 }

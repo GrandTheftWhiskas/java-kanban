@@ -3,6 +3,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.List;
 import tasks.*;
 import managers.*;
 import exceptions.*;
+
+import javax.imageio.IIOException;
 
 class TaskTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
@@ -124,5 +128,37 @@ class TaskTest {
         taskManager.deleteAllTasks();
         List<Task> list = manager.getHistory();
         Assertions.assertTrue(list.isEmpty());
+    }
+    // 7 спринт
+
+    @Test
+    public void saveAndDownloadEmptyFile() {
+        try {
+            File file = File.createTempFile("vrem", null, new File("java-kanban/vrem.txt"));
+            FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(file);
+            fileBackedTaskManager.save();
+            FileBackedTaskManager fileBackedTaskManager1 = FileBackedTaskManager.loadFromFile(file);
+            Assertions.assertNull(fileBackedTaskManager1);
+        } catch (IOException e) {
+            System.out.println("Ошибка");
+        }
+    }
+
+    @Test
+    public void saveAndDownloadNotEmptyFile() {
+        try {
+            File file = File.createTempFile("vrem", null, new File("java-kanban/vrem.txt"));
+            FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(file);
+            fileBackedTaskManager.createTask(
+                    new Task("Новая задача", Status.NEW, Type.TASK, "Описание задачи"));
+            fileBackedTaskManager.createTask(
+                    new Task("Вторая задача", Status.NEW, Type.TASK, "Описание задачи"));
+            fileBackedTaskManager.createTask(
+                    new Task("Еще одна задача", Status.NEW, Type.TASK, "Описание задачи"));
+            FileBackedTaskManager fileBackedTaskManager1 = FileBackedTaskManager.loadFromFile(file);
+            Assertions.assertNotNull(fileBackedTaskManager1);
+        } catch (IOException e) {
+            System.out.println("Ошибка");
+        }
     }
 }

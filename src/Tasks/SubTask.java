@@ -10,4 +10,8 @@ public class SubTask extends Task {
     public int getEpic() {
         return epic;
     }
+
+    public void setEpic(int epic) {
+        this.epic = epic;
+    }
 }

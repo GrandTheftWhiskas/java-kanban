@@ -5,16 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b9b5135-092d-48fd-b1f1-5084773dad6b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/managers/FileBackedTaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Managers/FileBackedTaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Managers/FileBackedTaskManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Managers/InMemoryTaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Managers/InMemoryTaskManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Managers/ManagerSaveException.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Managers/TaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Managers/TaskManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Epic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasks/SubTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/SubTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/TaskTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/TaskTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Epic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Epic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Tasks/SubTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Tasks/SubTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Task.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/exceptions/ManagerSaveException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/exceptions/ManagerSaveException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/FileBackedTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/FileBackedTaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/InMemoryTaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/TaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/TaskTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskTest.java" afterDir="false" />
@@ -56,58 +59,18 @@
   }
 }</component>
   <component name="RunManager" selected="JUnit.TaskTest (1)">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="java-kanban" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TaskTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TaskTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TaskTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.TaskTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TaskTest.addTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.TaskTest" />
-      <option name="METHOD_NAME" value="addTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TaskTest.checkIsEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.TaskTest" />
-      <option name="METHOD_NAME" value="checkIsEmpty" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -122,13 +85,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TaskTest.saveAndDownloadEmptyFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TaskTest" />
+      <option name="METHOD_NAME" value="saveAndDownloadEmptyFile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskTest.saveNotEmptyFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TaskTest" />
+      <option name="METHOD_NAME" value="saveNotEmptyFile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TaskTest (1)" />
+        <item itemvalue="JUnit.TaskTest.saveAndDownloadEmptyFile" />
+        <item itemvalue="JUnit.TaskTest.saveNotEmptyFile" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.TaskTest.saveAndDownloadEmpty" />
-        <item itemvalue="JUnit.TaskTest" />
-        <item itemvalue="JUnit.TaskTest.addTest" />
-        <item itemvalue="JUnit.TaskTest.checkIsEmpty" />
       </list>
     </recent_temporary>
   </component>
