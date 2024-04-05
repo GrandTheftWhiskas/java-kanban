@@ -11,11 +11,11 @@ import exceptions.*;
 
 public class InMemoryTaskManager implements TaskManager {
     protected HistoryManager history = Managers.getDefaultHistory();
-    protected static Map<Integer, Task> tasks;
-    protected static Map<Integer, Epic> epics;
-    protected static Map<Integer, SubTask> subTasks;
+    protected Map<Integer, Task> tasks;
+    protected Map<Integer, Epic> epics;
+    protected Map<Integer, SubTask> subTasks;
 
-    private int id = 1;
+    protected int id = 1;
 
     public InMemoryTaskManager() {
         this.tasks = new HashMap<>();
@@ -23,20 +23,20 @@ public class InMemoryTaskManager implements TaskManager {
         this.subTasks = new HashMap<>();
     }
 
-    private int genereateId() {
+    private int generateId() {
         return id++;
     }
 
     @Override
-    public Task createTask(Task task){
-        task.setId(genereateId());
+    public Task createTask(Task task) {
+        task.setId(generateId());
         tasks.put(task.getId(), task);
         return task;
     }
 
     @Override
     public SubTask createSubTask(SubTask subTask) {
-        subTask.setId(genereateId());
+        subTask.setId(generateId());
         Epic epic = epics.get(subTask.getEpic());
         epic.setSubTask(subTask.getId());
         subTasks.put(subTask.getId(), subTask);
@@ -46,7 +46,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Epic createEpic(Epic epic) {
-        epic.setId(genereateId());
+        epic.setId(generateId());
         epics.put(epic.getId(), epic);
         return epic;
     }
@@ -115,7 +115,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteTask(int id) throws ManagerSaveException {
+    public void deleteTask(int id) {
         tasks.remove(id);
         history.remove(id);
 
