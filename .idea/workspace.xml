@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b9b5135-092d-48fd-b1f1-5084773dad6b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Managers/FileBackedTaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Managers/FileBackedTaskManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Managers/InMemoryTaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Managers/InMemoryTaskManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/TaskTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/TaskTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Epic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Epic.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Tasks/SubTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Tasks/SubTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-kanban/Tasks/Task.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Epic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasks/SubTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/SubTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/FileBackedTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/FileBackedTaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/InMemoryTaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TaskTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TaskTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
