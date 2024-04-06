@@ -13,6 +13,11 @@ public class SubTask extends Task {
         return epic;
     }
 
+    @Override
+    public Type getType() {
+        return type;
+    }
+
     public void setEpic(int epic) {
         this.epic = epic;
     }
