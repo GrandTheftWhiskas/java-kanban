@@ -6,15 +6,16 @@ import java.util.Objects;
 import java.util.List;
 import java.util.Map;
 import tasks.*;
+import exceptions.*;
 
 
 public class InMemoryTaskManager implements TaskManager {
-    private HistoryManager history = Managers.getDefaultHistory();
-    private Map<Integer, Task> tasks;
-    private Map<Integer, Epic> epics;
-    private Map<Integer, SubTask> subTasks;
+    protected HistoryManager history = Managers.getDefaultHistory();
+    protected Map<Integer, Task> tasks;
+    protected Map<Integer, Epic> epics;
+    protected Map<Integer, SubTask> subTasks;
 
-    private int id = 1;
+    protected int id = 1;
 
     public InMemoryTaskManager() {
         this.tasks = new HashMap<>();
@@ -22,20 +23,20 @@ public class InMemoryTaskManager implements TaskManager {
         this.subTasks = new HashMap<>();
     }
 
-    private int genereateId() {
+    private int generateId() {
         return id++;
     }
 
     @Override
     public Task createTask(Task task) {
-        task.setId(genereateId());
+        task.setId(generateId());
         tasks.put(task.getId(), task);
         return task;
     }
 
     @Override
     public SubTask createSubTask(SubTask subTask) {
-        subTask.setId(genereateId());
+        subTask.setId(generateId());
         Epic epic = epics.get(subTask.getEpic());
         epic.setSubTask(subTask.getId());
         subTasks.put(subTask.getId(), subTask);
@@ -45,7 +46,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Epic createEpic(Epic epic) {
-        epic.setId(genereateId());
+        epic.setId(generateId());
         epics.put(epic.getId(), epic);
         return epic;
     }
@@ -172,7 +173,7 @@ public class InMemoryTaskManager implements TaskManager {
         return history.getHistory();
     }
 
-    private void calculateStatus(Epic epic) {
+    protected void calculateStatus(Epic epic) {
         SubTask subTask;
         int newTask = 0;
         int done = 0;
@@ -213,5 +214,7 @@ public class InMemoryTaskManager implements TaskManager {
                 Objects.equals(epics, manager.epics) &&
                 id == manager.id;
     }
+
+
 }
 

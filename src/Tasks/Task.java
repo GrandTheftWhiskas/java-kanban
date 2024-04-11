@@ -3,6 +3,8 @@ package tasks;
 public class Task {
     private int id;
     private String name;
+
+    private Type type = Type.TASK;
     private Status status;
     private String description;
 
@@ -18,6 +20,10 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public String getName() {

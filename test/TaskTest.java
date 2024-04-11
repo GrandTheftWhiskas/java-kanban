@@ -2,14 +2,21 @@
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import tasks.*;
 import managers.*;
+import exceptions.*;
+
+import javax.imageio.IIOException;
 
 class TaskTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
     @Test
     public void taskEqualsTask() {
         Task task = taskManager.createTask(new Task("Вторая задача", Status.NEW, "Подробное описание"));
@@ -120,5 +127,51 @@ class TaskTest {
         taskManager.deleteAllTasks();
         List<Task> list = manager.getHistory();
         Assertions.assertTrue(list.isEmpty());
+    }
+    // 7 спринт
+
+    @Test
+    public void saveAndDownloadNotEmptyFile() {
+        try {
+            File temp = File.createTempFile("save", "csv");
+            FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(temp);
+            Epic epic = fileBackedTaskManager.createEpic(
+                    new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+            Task task = fileBackedTaskManager.createTask(
+                    new Task("Новая задача", Status.NEW, "Описание задачи"));
+            SubTask subTask = fileBackedTaskManager.createSubTask(
+                    new SubTask("Новая подзадача", Status.NEW, "Описание подзадачи", epic.getId()));
+            fileBackedTaskManager.getTask(task.getId());
+            fileBackedTaskManager.getEpic(epic.getId());
+            fileBackedTaskManager.getSubTask(subTask.getId());
+            FileBackedTaskManager fileBackedTaskManager1 = FileBackedTaskManager.loadFromFile(temp);
+            Task restoreTask = fileBackedTaskManager1.getTask(task.getId());
+            SubTask restoreSubtask = fileBackedTaskManager1.getSubTask(subTask.getId());
+            Epic restoreEpic = fileBackedTaskManager1.getEpic(epic.getId());
+
+            Assertions.assertNotNull(restoreTask);
+            Assertions.assertEquals(restoreTask.getId(), task.getId());
+            Assertions.assertEquals(restoreTask.getName(), task.getName());
+            Assertions.assertEquals(restoreTask.getStatus(), task.getStatus());
+            Assertions.assertEquals(restoreTask.getDescription(), task.getDescription());
+
+            Assertions.assertNotNull(restoreSubtask);
+            Assertions.assertEquals(restoreSubtask.getId(), subTask.getId());
+            Assertions.assertEquals(restoreSubtask.getName(), subTask.getName());
+            Assertions.assertEquals(restoreSubtask.getStatus(), subTask.getStatus());
+            Assertions.assertEquals(restoreSubtask.getDescription(), subTask.getDescription());
+            Assertions.assertEquals(restoreSubtask.getEpic(), subTask.getEpic());
+
+            Assertions.assertNotNull(restoreEpic);
+            Assertions.assertNotNull(restoreEpic.getAllSubTasks());
+            Assertions.assertEquals(restoreEpic.getId(), epic.getId());
+            Assertions.assertEquals(restoreEpic.getName(), epic.getName());
+            Assertions.assertEquals(restoreEpic.getStatus(), epic.getStatus());
+            Assertions.assertEquals(restoreEpic.getDescription(), epic.getDescription());
+
+            Assertions.assertNotNull(fileBackedTaskManager1.getHistory());
+        } catch (IOException e) {
+            System.out.println("Ошибка");
+        }
     }
 }
