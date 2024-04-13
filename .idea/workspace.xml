@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b9b5135-092d-48fd-b1f1-5084773dad6b" name="Changes" comment="" />
+    <list default="true" id="4b9b5135-092d-48fd-b1f1-5084773dad6b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Epic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasks/SubTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/SubTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/FileBackedTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/FileBackedTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/InMemoryTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TaskTest.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,11 +46,11 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;sprint__7-solution-in-file-manager&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/admin/IdeaProjects/Test/.idea/.gitignore&quot;
+    &quot;git-widget-placeholder&quot;: &quot;sprint__8-solution-time-and-duration&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/admin/IdeaProjects/java-kanban&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.TaskTest (1)">
+  <component name="RunManager" selected="JUnit.TaskTest.saveAndDownloadNotEmptyFile">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="java-kanban" />
@@ -90,8 +99,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TaskTest (1)" />
         <item itemvalue="JUnit.TaskTest.saveAndDownloadNotEmptyFile" />
+        <item itemvalue="JUnit.TaskTest (1)" />
         <item itemvalue="JUnit.TaskTest.saveAndDownloadEmptyFile" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.TaskTest.saveNotEmptyFile" />

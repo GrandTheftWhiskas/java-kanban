@@ -1,10 +1,10 @@
 package managers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.List;
-import java.util.Map;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import tasks.*;
 import exceptions.*;
 
@@ -16,6 +16,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected Map<Integer, SubTask> subTasks;
 
     protected int id = 1;
+    private int sort = 0;
 
     public InMemoryTaskManager() {
         this.tasks = new HashMap<>();
@@ -29,19 +30,40 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task createTask(Task task) {
-        task.setId(generateId());
-        tasks.put(task.getId(), task);
-        return task;
+            task.setId(generateId());
+            tasks.put(task.getId(), task);
+            sort = 0;
+            getPrioritizedTasks();
+            if (checkTasks(task)) {
+                return task;
+            } else {
+                System.out.println("Обнаружено пересечение. Задача не может быть добавлена");
+                return null;
+            }
     }
 
     @Override
     public SubTask createSubTask(SubTask subTask) {
         subTask.setId(generateId());
         Epic epic = epics.get(subTask.getEpic());
+        List<Integer> sTasks = epic.getAllSubTasks();
+        if (sTasks.isEmpty()) {
+            epic.setStartTime(subTask.getStartTime());
+            epic.setEndTime(subTask.getStartTime().plus(subTask.getDuration()));
+        } else {
+            epic.setEndTime(epic.getEndTime().plus(subTask.getDuration()));
+        }
         epic.setSubTask(subTask.getId());
         subTasks.put(subTask.getId(), subTask);
         calculateStatus(epic);
-        return subTask;
+        sort = 0;
+        getPrioritizedTasks();
+        if (checkTasks(subTask)) {
+            return subTask;
+        } else {
+            System.out.println("Обнаружено пересечение. Подзадача не может быть добавлена");
+            return null;
+        }
     }
 
     @Override
@@ -173,6 +195,46 @@ public class InMemoryTaskManager implements TaskManager {
         return history.getHistory();
     }
 
+    public Set<Task> getPrioritizedTasks() {
+        Comparator<Task> comparator = new Comparator<>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                Duration duration1 = Duration.between(o1.getStartTime(), LocalDateTime.now());
+                Duration duration2 = Duration.between(o2.getStartTime(), LocalDateTime.now());
+                return (int) duration1.toMinutes() - (int) duration2.toMinutes();
+            }
+        };
+        Set<Task> tree = new TreeSet<>(comparator);
+        if (sort == 0) {
+           for (Task task : tasks.values()) {
+               if (task.getStartTime() == null) {
+                   continue;
+               }
+               tree.add(task);
+           }
+           for (SubTask subTask : subTasks.values()) {
+               if (subTask.getStartTime() == null) {
+                   continue;
+               }
+               tree.add(subTask);
+           }
+            sort = 1;
+            return tree;
+        } else {
+            return tree;
+        }
+    }
+
+    public boolean checkTasks(Task task) {
+        Set<Task> set = getPrioritizedTasks();
+        for (Task task1 : set) {
+            if (!task1.getEndTime().isBefore(task.getStartTime())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     protected void calculateStatus(Epic epic) {
         SubTask subTask;
         int newTask = 0;
@@ -214,7 +276,5 @@ public class InMemoryTaskManager implements TaskManager {
                 Objects.equals(epics, manager.epics) &&
                 id == manager.id;
     }
-
-
 }
 

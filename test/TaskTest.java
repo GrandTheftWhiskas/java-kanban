@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import tasks.*;
@@ -34,7 +36,8 @@ class TaskTest {
     @Test
     public void subtaskEqualsSubtask() {
         Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW, "Описание подзадачи", epic.getId()));
+        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+                "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30),  epic.getId()));
         SubTask secondSubTask = taskManager.getSubTask(subTask.getId());
         Assertions.assertEquals(subTask, secondSubTask, "Подзадачи не равны");
     }
@@ -51,7 +54,8 @@ class TaskTest {
     @Test
     public void subtaskIsEpic() {
         Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW, "Описание подзадачи", epic.getId()));
+        taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+                "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(40), epic.getId()));
         List<Integer> list = epic.getAllSubTasks();
         Assertions.assertNotEquals(list.get(0), epic.getId());
     }
@@ -138,9 +142,10 @@ class TaskTest {
             Epic epic = fileBackedTaskManager.createEpic(
                     new Epic("Новый эпик", Status.NEW, "Описание эпика"));
             Task task = fileBackedTaskManager.createTask(
-                    new Task("Новая задача", Status.NEW, "Описание задачи"));
+                    new Task("Новая задача", Status.NEW, "Описание задачи",
+                            LocalDateTime.now(), Duration.ofMinutes(25)));
             SubTask subTask = fileBackedTaskManager.createSubTask(
-                    new SubTask("Новая подзадача", Status.NEW, "Описание подзадачи", epic.getId()));
+                    new SubTask("Новая подзадача", Status.NEW, "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(25), epic.getId()));
             fileBackedTaskManager.getTask(task.getId());
             fileBackedTaskManager.getEpic(epic.getId());
             fileBackedTaskManager.getSubTask(subTask.getId());
