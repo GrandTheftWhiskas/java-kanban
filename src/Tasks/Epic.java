@@ -13,7 +13,6 @@ public class Epic extends Task {
     private Status status;
     private String description;
     private LocalDateTime startTime;
-    private Duration duration;
     private LocalDateTime endTime;
 
     public Epic(String name, Status status, String description) {
@@ -42,17 +41,17 @@ public class Epic extends Task {
         return type;
     }
 
-    public void setDuration(Duration duration) {
-         this.duration = duration;
-    }
-
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
-        setDuration(Duration.between(startTime, endTime));
     }
 
     @Override
     public LocalDateTime getEndTime() {
         return endTime;
+    }
+
+    @Override
+    public Duration getDuration() {
+        return Duration.between(startTime, endTime);
     }
 }

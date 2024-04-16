@@ -139,13 +139,14 @@ class TaskTest {
         try {
             File temp = File.createTempFile("save", "csv");
             FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(temp);
-            Epic epic = fileBackedTaskManager.createEpic(
+            Epic epic = taskManager.createEpic(
                     new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-            Task task = fileBackedTaskManager.createTask(
+            Task task = taskManager.createTask(
                     new Task("Новая задача", Status.NEW, "Описание задачи",
                             LocalDateTime.now(), Duration.ofMinutes(25)));
-            SubTask subTask = fileBackedTaskManager.createSubTask(
-                    new SubTask("Новая подзадача", Status.NEW, "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(25), epic.getId()));
+            SubTask subTask = taskManager.createSubTask(
+                    new SubTask("Новая подзадача", Status.NEW,
+                            "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(25), epic.getId()));
             fileBackedTaskManager.getTask(task.getId());
             fileBackedTaskManager.getEpic(epic.getId());
             fileBackedTaskManager.getSubTask(subTask.getId());
