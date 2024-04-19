@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -118,7 +120,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private void save() {
         try {
             Writer writer = new FileWriter(file);
-            writer.write("id,type,name,status,description,epic \n");
+            writer.write("id,type,name,status,description,startTime,duration,epic \n");
             for (Task task : super.getAllTasks()) {
                 writer.write(toString(task) + "\n");
             }
@@ -192,26 +194,29 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private String toString(Task task) {
         if (task.getType().equals(Type.EPIC)) {
-            return String.format("%d,%s,%s,%s,%s", task.getId(), task.getType(), task.getName(),
-                    task.getStatus(), task.getDescription());
+            return String.format("%d,%s,%s,%s,%s,%s,%s", task.getId(), task.getType(), task.getName(),
+                    task.getStatus(), task.getDescription(), task.getStartTime(), task.getDuration().toMinutes());
         } else if (task.getType().equals(Type.SUBTASK)) {
             SubTask subTask = subTasks.get(task.getId());
-            return String.format("%d,%s,%s,%s,%s,%d", task.getId(), task.getType(), task.getName(),
-                    task.getStatus(), task.getDescription(), subTask.getEpic());
+            return String.format("%d,%s,%s,%s,%s,%s,%s,%d", task.getId(), task.getType(), task.getName(),
+                    task.getStatus(), task.getDescription(),
+                    subTask.getStartTime(), subTask.getDuration().toMinutes(), subTask.getEpic());
         } else {
-            return String.format("%d,%s,%s,%s,%s", task.getId(), task.getType(), task.getName(),
-                    task.getStatus(), task.getDescription());
+            return String.format("%d,%s,%s,%s,%s,%s,%s", task.getId(), task.getType(), task.getName(),
+                    task.getStatus(), task.getDescription(), task.getStartTime(), task.getDuration().toMinutes());
         }
     }
 
     private Task fromString(String value) {
         List<String> values = List.of(value.split(","));
         if (values.get(1).equals("SUBTASK")) {
-            SubTask subTask = new SubTask(null,null,null, 0);
+            SubTask subTask = new SubTask(null,null,null, null, null, 0);
             subTask.setId(Integer.parseInt(values.get(0)));
             subTask.setName(values.get(2));
             subTask.setDescription(values.get(4));
-            subTask.setEpic(Integer.parseInt(values.get(5)));
+            subTask.setStartTime(LocalDateTime.parse(values.get(5)));
+            subTask.setDuration(Duration.ofMinutes(Integer.parseInt(values.get(6))));
+            subTask.setEpic(Integer.parseInt(values.get(7)));
             if (values.get(3).equals("IN_PROGRESS")) {
                 subTask.setStatus(Status.IN_PROGRESS);
             } else if (values.get(3).equals("DONE")) {
@@ -225,6 +230,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             epic.setId(Integer.parseInt(values.get(0)));
             epic.setName(values.get(2));
             epic.setDescription(values.get(4));
+            epic.setStartTime(LocalDateTime.parse(values.get(5)));
+            epic.setDuration(Duration.ofMinutes(Integer.parseInt(values.get(6))));
             if (values.get(3).equals("IN_PROGRESS")) {
                 epic.setStatus(Status.IN_PROGRESS);
             } else if (values.get(3).equals("DONE")) {
@@ -234,10 +241,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
             return epic;
         } else {
-            Task task = new Task(null, null, null);
+            Task task = new Task(null, null, null, null, null);
             task.setId(Integer.parseInt(values.get(0)));
             task.setName(values.get(2));
             task.setDescription(values.get(4));
+            task.setStartTime(LocalDateTime.parse(values.get(5)));
+            task.setDuration(Duration.ofMinutes(Integer.parseInt(values.get(6))));
             if (values.get(3).equals("IN_PROGRESS")) {
                 task.setStatus(Status.IN_PROGRESS);
             } else if (values.get(3).equals("DONE")) {
