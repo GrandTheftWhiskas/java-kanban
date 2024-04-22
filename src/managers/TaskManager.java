@@ -2,6 +2,8 @@ package managers;
 import tasks.*;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import exceptions.*;
 
 public interface TaskManager {
@@ -40,4 +42,6 @@ public interface TaskManager {
     void deleteAllSubTasks();
 
     void deleteAllEpics();
+
+    List<Task> getHistory();
 }
