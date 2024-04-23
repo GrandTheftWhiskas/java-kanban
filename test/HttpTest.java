@@ -58,8 +58,6 @@ public class HttpTest {
             System.out.println("Во время выполнения запроса возникла ошибка");
         }
     }
-
-
 }
 
 class TasksToken extends TypeToken<List<Task>> {

@@ -18,8 +18,7 @@ public class HttpTaskServer {
             httpServer.createContext("/prioritized", new PrioritizedHandler());
             httpServer.start();
         } catch (IOException e) {
-            System.out.println("Произошла ошибка");
-            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
         }
     }
 }

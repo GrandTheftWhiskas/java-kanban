@@ -43,6 +43,7 @@ class TaskHandler implements HttpHandler {
                         os.write(response.getBytes());
                     }
                 }
+                break;
             case "POST":
                 InputStream inputStream = exchange.getRequestBody();
                 String request = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
@@ -70,6 +71,7 @@ class TaskHandler implements HttpHandler {
                         os.write(response.getBytes());
                     }
                 }
+                break;
             case "DELETE":
                 InputStream inputStream1 = exchange.getRequestBody();
                 String request1 = new String(inputStream1.readAllBytes(), StandardCharsets.UTF_8);
@@ -80,6 +82,7 @@ class TaskHandler implements HttpHandler {
                     String response = "Задача успешно удалена";
                     os.write(response.getBytes());
                 }
+                break;
             default:
                 exchange.sendResponseHeaders(404, 0);
                 try (OutputStream os = exchange.getResponseBody()) {

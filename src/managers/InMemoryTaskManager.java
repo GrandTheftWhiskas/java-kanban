@@ -13,15 +13,11 @@ public class InMemoryTaskManager implements TaskManager {
     protected Map<Integer, SubTask> subTasks;
 
     protected int id = 1;
-    Comparator<Task> comparator = new Comparator<>() {
-        @Override
-        public int compare(Task o1, Task o2) {
-            Duration duration1 = Duration.between(o1.getStartTime(), LocalDateTime.now());
-            Duration duration2 = Duration.between(o2.getStartTime(), LocalDateTime.now());
-            return (int) duration1.toMinutes() - (int) duration2.toMinutes();
-        }
-    };
-    Set<Task> tree = new TreeSet<>(comparator);
+    private Set<Task> tree = new TreeSet<>((Task o1, Task o2) -> {
+        Duration duration1 = Duration.between(o1.getStartTime(), LocalDateTime.now());
+        Duration duration2 = Duration.between(o2.getStartTime(), LocalDateTime.now());
+        return (int) duration1.toMinutes() - (int) duration2.toMinutes();
+    });
 
     private int generateId() {
         return id++;
@@ -48,7 +44,7 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setSubTask(subTask.getId());
             subTasks.put(subTask.getId(), subTask);
             setPrioritizedTasks(subTask);
-            calculateStatus(epic);
+            calculateTime(epic);
             return subTask;
         } else {
             System.out.println("Обнаружено пересечение. Подзадача не может быть добавлена");
@@ -107,7 +103,7 @@ public class InMemoryTaskManager implements TaskManager {
         Epic saved = epics.get(epicId);
         if (saved != null && subTasks.containsValue(subTask)) {
             subTasks.put(subTask.getId(), subTask);
-            calculateStatus(saved);
+            calculateTime(saved);
         }
     }
 
@@ -140,7 +136,7 @@ public class InMemoryTaskManager implements TaskManager {
         int epicId = removeSubTask.getEpic();
         Epic saved = epics.get(epicId);
         saved.deleteSubTask(id);
-        calculateStatus(saved);
+        calculateTime(saved);
     }
 
     @Override
@@ -167,7 +163,7 @@ public class InMemoryTaskManager implements TaskManager {
         subTasks.clear();
         for (Epic epic : epics.values()) {
             epic.deleteAllSubTasks();
-            calculateStatus(epic);
+            calculateTime(epic);
         }
     }
 
@@ -203,6 +199,18 @@ public class InMemoryTaskManager implements TaskManager {
                     !task1.getStartTime().isAfter(task.getEndTime())).collect(Collectors.toSet());
             return set.isEmpty();
         }
+    }
+
+    public void calculateTime(Epic epic) {
+        List<SubTask> sTasks = getAllSubTasks().stream().filter(subTask -> subTask.getEpic() == epic.getId())
+                .sorted((SubTask subTask1, SubTask subTask2) -> {
+                    Duration duration = Duration.between(subTask1.getStartTime(), LocalDateTime.now());
+                    Duration duration1 = Duration.between(subTask2.getStartTime(), LocalDateTime.now());
+                    return (int) duration.toMinutes() - (int) duration1.toMinutes();
+                }).collect(Collectors.toList());
+        epic.setStartTime(sTasks.get(0).getStartTime());
+        epic.setEndTime(sTasks.get(sTasks.size() - 1).getEndTime());
+        calculateStatus(epic);
     }
 
     private void calculateStatus(Epic epic) {
