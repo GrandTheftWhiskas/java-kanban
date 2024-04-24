@@ -11,12 +11,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class TaskManagerTest<T extends TaskManager> {
-    TaskManager taskManager = new BaseTaskManager();
-    InMemoryTaskManager taskManager1 = new InMemoryTaskManager();
+    TaskManager taskManager1 = Managers.getDefault();
 
     @Test
     public void createTaskTest() {
-        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW,
+        Task task = taskManager1.createTask(new Task("Новая задача", Status.NEW,
                 "Описание задачи", LocalDateTime.now(), Duration.ofMinutes(15)));
 
         Assertions.assertNotNull(task);
@@ -24,8 +23,8 @@ public class TaskManagerTest<T extends TaskManager> {
 
     @Test
     public void createSubtaskTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
 
         Assertions.assertNotNull(subTask);
@@ -33,8 +32,8 @@ public class TaskManagerTest<T extends TaskManager> {
 
     @Test
     public void createEpicTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
 
         Assertions.assertNotNull(epic);
@@ -42,139 +41,139 @@ public class TaskManagerTest<T extends TaskManager> {
 
     @Test
     public void getTaskTest() {
-        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW,
+        Task task = taskManager1.createTask(new Task("Новая задача", Status.NEW,
                 "Описание задачи", LocalDateTime.now(), Duration.ofMinutes(15)));
 
-        Task task1 = taskManager.getTask(task.getId());
+        Task task1 = taskManager1.getTask(task.getId());
         Assertions.assertNotNull(task1);
     }
 
     @Test
     public void getSubtaskTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
 
-        SubTask subTask1 = taskManager.getSubTask(subTask.getId());
+        SubTask subTask1 = taskManager1.getSubTask(subTask.getId());
         Assertions.assertNotNull(subTask1);
     }
 
     @Test
     public void getEpicTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
 
-        Epic epic1 = taskManager.getEpic(epic.getId());
+        Epic epic1 = taskManager1.getEpic(epic.getId());
         Assertions.assertNotNull(epic1);
     }
 
     @Test
     public void getAllTasksTest() {
-        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW,
+        Task task = taskManager1.createTask(new Task("Новая задача", Status.NEW,
                 "Описание задачи", LocalDateTime.now(), Duration.ofMinutes(15)));
-        List<Task> list = taskManager.getAllTasks();
+        List<Task> list = taskManager1.getAllTasks();
         Assertions.assertFalse(list.isEmpty());
     }
 
     @Test
     public void getAllSubtasksTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
-        List<SubTask> list = taskManager.getAllSubTasks();
+        List<SubTask> list = taskManager1.getAllSubTasks();
         Assertions.assertFalse(list.isEmpty());
     }
 
     @Test
     public void getAllEpicsTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
-        List<Epic> list = taskManager.getAllEpics();
+        List<Epic> list = taskManager1.getAllEpics();
         Assertions.assertFalse(list.isEmpty());
     }
 
     @Test
     public void deleteTaskTest() {
-        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW,
+        Task task = taskManager1.createTask(new Task("Новая задача", Status.NEW,
                 "Описание задачи", LocalDateTime.now(), Duration.ofMinutes(15)));
-        taskManager.deleteTask(task.getId());
-        Task task1 = taskManager.getTask(task.getId());
+        taskManager1.deleteTask(task.getId());
+        Task task1 = taskManager1.getTask(task.getId());
         Assertions.assertNull(task1);
     }
 
     @Test
     public void deleteSubtaskTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
-        taskManager.deleteSubTask(subTask.getId());
-        SubTask subTask1 = taskManager.getSubTask(subTask.getId());
+        taskManager1.deleteSubTask(subTask.getId());
+        SubTask subTask1 = taskManager1.getSubTask(subTask.getId());
         Assertions.assertNull(subTask1);
     }
 
     @Test
     public void deleteEpicTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
-        taskManager.deleteEpic(epic.getId());
-        Epic epic1 = taskManager.getEpic(epic.getId());
+        taskManager1.deleteEpic(epic.getId());
+        Epic epic1 = taskManager1.getEpic(epic.getId());
         Assertions.assertNull(epic1);
     }
 
     @Test
     public void deleteAllTasksTest() {
-        Task task = taskManager.createTask(new Task("Новая задача", Status.NEW,
+        Task task = taskManager1.createTask(new Task("Новая задача", Status.NEW,
                 "Описание задачи", LocalDateTime.now(), Duration.ofMinutes(15)));
-        taskManager.deleteAllTasks();
-        List<Task> list = taskManager.getAllTasks();
+        taskManager1.deleteAllTasks();
+        List<Task> list = taskManager1.getAllTasks();
         Assertions.assertTrue(list.isEmpty());
     }
 
     @Test
     public void deleteAllSubtasksTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
             "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
-        taskManager.deleteAllSubTasks();
-        List<SubTask> list = taskManager.getAllSubTasks();
+        taskManager1.deleteAllSubTasks();
+        List<SubTask> list = taskManager1.getAllSubTasks();
         Assertions.assertTrue(list.isEmpty());
     }
 
     @Test
     public void deleteAllEpicsTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
-        taskManager.deleteAllEpics();
-        List<Epic> list = taskManager.getAllEpics();
+        taskManager1.deleteAllEpics();
+        List<Epic> list = taskManager1.getAllEpics();
         Assertions.assertTrue(list.isEmpty());
     }
 
     @Test
     public void getEpicIdTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
         Assertions.assertNotNull(epic.getId());
     }
 
     @Test
     public void getSubtaskFromEpicTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
-        SubTask subTask1 = taskManager.createSubTask(new SubTask("Новая подзадача", Status.NEW,
+        SubTask subTask1 = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.NEW,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
         Assertions.assertFalse(epic.getAllSubTasks().isEmpty());
     }
 
     @Test
     public void getEpicStatusTest() {
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача", Status.IN_PROGRESS,
+        Epic epic = taskManager1.createEpic(new Epic("Новый эпик", Status.NEW, "Описание эпика"));
+        SubTask subTask = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.IN_PROGRESS,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
-        SubTask subTask1 = taskManager.createSubTask(new SubTask("Новая подзадача", Status.IN_PROGRESS,
+        SubTask subTask1 = taskManager1.createSubTask(new SubTask("Новая подзадача", Status.IN_PROGRESS,
                 "Описание подзадачи", LocalDateTime.now(), Duration.ofMinutes(30), epic.getId()));
         Assertions.assertEquals(epic.getStatus(), Status.IN_PROGRESS);
     }
